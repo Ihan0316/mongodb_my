@@ -13,7 +13,8 @@
 
 // 컬렉션 생성
 
-// db.createCollection("cappedC", {capped: true, size: 10000 });
+// db.createCollection("cappedC",
+// {capped: true, size: 10000 });
 // cappedC라는 이름의 컬렉션을 생성.
 
 // 최대 10,000바이트 크기의 공간을 유지.
@@ -56,6 +57,9 @@ db.createCollection("cappedC", { capped: true, size: 10000 });
 db.cappedC.insertOne({ x: 1 });
 db.cappedC.find();
 
+// 반복문으로 1000개 추가시
+// 오래된 데이터 삭제 후, 새로운 데이터 추가
+// 1~655번까지 삭제 후 656번부터 추가됨
 for (i = 0; i < 1000; i++) {
   db.cappedC.insertOne({ x: i });
 }
@@ -63,3 +67,9 @@ for (i = 0; i < 1000; i++) {
 db.cappedC.find();
 db.cappedC.storageSize();
 db.cappedC.stats();
+
+// 일반 컬랙션에 반복문으로 데이터 1000개 추가
+for (i = 0; i < 1000; i++) {
+  db.testCollection.insertOne({ x: i });
+}
+db.testCollection.find();
