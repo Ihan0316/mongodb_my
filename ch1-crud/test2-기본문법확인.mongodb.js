@@ -371,3 +371,30 @@ db.users.updateOne({ name: "Alice" }, { $unset: { age: "" } });
 // 데이터 구조 변경 시 필드명을 일괄 수정.
 
 db.users.updateMany({}, { $rename: { name: "FullName" } });
+
+// 20
+// 컬렉션 삭제 (drop)
+// 기본 문법
+
+// db.collection.drop();
+// 예제
+
+// db.users.drop();
+// 실무 활용
+// 필요 없는 컬렉션 삭제.
+
+db.users.drop();
+
+// 21
+// 데이터베이스 삭제 (dropDatabase)
+// 기본 문법
+
+// db.dropDatabase();
+// 예제
+
+// use("testDB");
+// db.dropDatabase();
+// 실무 활용
+// 개발 환경에서 테스트 데이터베이스 삭제.
+
+db.dropDatabase();
