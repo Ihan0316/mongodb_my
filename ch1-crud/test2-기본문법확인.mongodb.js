@@ -97,10 +97,12 @@ db.testCollection.find();
 // 단일 문서 또는 여러 문서를 컬렉션에 삽입.
 
 // 예제
-db.users.insertOne({ name: "Alice", age: 25 });
-db.users.insertOne({ name: "Alice", age: 25, place: "부산" });
-db.users.find();
-// db.users.insertMany([{ name: "Bob", age: 30 }, { name: "Charlie", age: 35 }]);
+db.users.insertOne({ name: "Alice3", age: 35 });
+db.users.insertOne({ name: "Alice2", age: 15, place: "부산" });
+db.users.insertMany([
+  { name: "Bob", age: 30 },
+  { name: "Charlie", age: 35 },
+]);
 
 // 출력 결과
 // json
@@ -124,10 +126,13 @@ db.user.insertMany([
   { username: "Mijoo", password: 3212 },
   { username: "Yein", password: 3123 },
 ]);
-db.user.find();
 
+// 4
 // 3. 문서 조회 (find, findOne)
 // 기본 문법
+// db.collection.find(query, projection );
+// 쿼리 -> where, 조건문 ,
+// 프로젝션, -> 보고싶은 필드 정하기,
 
 // db.collection.find(query);
 // db.collection.findOne(query);
@@ -144,7 +149,6 @@ db.user.find();
 // 실무 활용
 // 특정 사용자의 프로필 정보 가져오기.
 // 데이터 분석을 위한 특정 조건의 데이터 검색.
-
 db.user.find();
 db.user.find(
   {},
@@ -152,3 +156,122 @@ db.user.find(
     _id: false,
   }
 );
+db.user.find(
+  {},
+  {
+    _id: false,
+    username: true,
+  }
+);
+
+// 5
+// 문서 업데이트 (updateOne, updateMany)
+// 기본 문법
+
+// db.collection.updateOne(filter, update);
+// db.collection.updateMany(filter, update);
+// updateOne() → 한 개의 문서만 변경.
+// updateMany() → 여러 개의 문서를 변경.
+// 예제
+
+// db.users.updateOne({ name: "Alice" }, { $set: { age: 26 } });
+// db.users.updateMany({ age: { $gte: 30 } }, { $set: { isAdult: true } });
+// 출력 결과
+// json
+
+// { "acknowledged": true, "matchedCount": 1, "modifiedCount": 1 }
+// 실무 활용
+// 사용자 정보 변경(예: 닉네임 변경).
+// 특정 그룹의 사용자 정보 일괄 업데이트.
+
+db.users.updateOne({ name: "Alice" }, { $set: { age: 26 } });
+db.users.updateMany({ age: { $gte: 20 } }, { $set: { isAdult: true } });
+
+// 6
+// 문서 삭제(deleteOne, deleteMany)
+// 기본 문법
+
+// db.collection.deleteOne(filter);
+// db.collection.deleteMany(filter);
+// deleteOne() → 조건과 일치하는 첫 번째 문서 삭제.
+//     deleteMany() → 조건과 일치하는 모든 문서 삭제.
+//         예제
+
+// db.users.deleteOne({ name: "Alice" });
+// db.users.deleteMany({ age: { $lt: 18 } });
+// 출력 결과
+// json
+
+// { "acknowledged": true, "deletedCount": 1 }
+// 실무 활용
+// 특정 사용자 계정 삭제.
+// 일정 기간이 지난 로그 데이터 삭제.
+
+db.users.deleteOne({ name: "Alice" });
+db.users.deleteMany({ age: { $lt: 25 } });
+
+// 7
+// 정렬 및 제한(sort, limit)
+// 기본 문법
+
+// db.collection.find().sort({ field: 1 });  // 오름차순
+// db.collection.find().sort({ field: -1 }); // 내림차순
+// db.collection.find().limit(n);
+// 예제
+
+// db.users.find().sort({ age: -1 }).limit(5);
+// 출력 결과
+// 나이가 많은 사용자 5명을 조회.
+// 실무 활용
+// 최신 등록된 회원 목록 출력.
+// 게시글 목록을 최신순으로 정렬.
+
+db.users.find().sort({ age: -1 }).limit(3);
+
+// 8
+// 필드 선택(Projection)
+// 기본 문법
+
+// db.collection.find(query, { field1: 1, field2: 1 });
+// 예제
+
+// db.users.find({}, { name: 1, _id: 0 });
+// 출력 결과
+// json
+
+// { "name": "Alice" }
+// 실무 활용
+// 특정 필드만 가져와서 API 응답 최적화.
+
+db.users.find({}, { name: 1, _id: 0 });
+
+// 11
+// 존재 여부 확인 (countDocuments)
+// 기본 문법
+
+// db.collection.countDocuments(query);
+// 예제
+
+// db.users.countDocuments({ age: { $gte: 30 } });
+// 출력 결과
+// json
+
+db.users.countDocuments({ age: { $gte: 30 } });
+
+// 12
+// 필드 존재 여부 확인 ($exists)
+// 기본 문법
+
+// db.collection.find({ fieldName: { $exists: true } });
+// 특정 필드가 존재하는 문서를 조회.
+// 예제
+
+// db.users.find({ age: { $exists: true } });
+// 출력 결과
+// json
+
+// { "_id": ObjectId("6578a3b2a3f93c1d3e9f7b22"), "name": "Alice", "age": 25 }
+// 실무 활용
+// 특정 필드가 있는 데이터만 조회할 때 사용(예: 이메일이 등록된 사용자 찾기).
+
+db.users.find({ place: { $exists: true } });
