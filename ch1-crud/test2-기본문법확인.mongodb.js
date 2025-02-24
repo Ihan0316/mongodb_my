@@ -118,3 +118,37 @@ db.emp.find().sort({ eno: -1 });
 
 db.testCollection.insertOne({ _id: 1, x: 1 });
 db.testCollection.find().sort({ _id: 1 });
+
+db.user.insertMany([
+  { username: "Kei", password: 4321 },
+  { username: "Mijoo", password: 3212 },
+  { username: "Yein", password: 3123 },
+]);
+db.user.find();
+
+// 3. 문서 조회 (find, findOne)
+// 기본 문법
+
+// db.collection.find(query);
+// db.collection.findOne(query);
+// find() → 여러 문서를 조회.
+// findOne() → 단일 문서를 조회.
+// 예제
+
+// db.users.find();
+// db.users.findOne({ name: "Alice" });
+// 출력 결과
+// json
+
+// { "_id": ObjectId("6578a3b2a3f93c1d3e9f7b22"), "name": "Alice", "age": 25 }
+// 실무 활용
+// 특정 사용자의 프로필 정보 가져오기.
+// 데이터 분석을 위한 특정 조건의 데이터 검색.
+
+db.user.find();
+db.user.find(
+  {},
+  {
+    _id: false,
+  }
+);
