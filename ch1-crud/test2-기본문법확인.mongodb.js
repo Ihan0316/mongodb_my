@@ -113,7 +113,7 @@ db.users.insertMany([
 // 로그 데이터 저장.
 
 db.emp.insertOne({ eno: 1101, fname: "JIMMY" });
-db.emp.insertOne({ eno: 1102, fname: "ADAM", lname: "KROLL" });
+db.emp.insertOne({ eno: 1102, fname: "ADAM", lname: "ROLL" });
 db.emp.insertOne({ eno: 1103, fname: "SMITH", job: "CLERK" });
 db.emp.find();
 db.emp.find().sort({ eno: -1 });
@@ -123,8 +123,8 @@ db.testCollection.find().sort({ _id: 1 });
 
 db.user.insertMany([
   { username: "Kei", password: 4321 },
-  { username: "Mijoo", password: 3212 },
-  { username: "Yein", password: 3123 },
+  { username: "Milo", password: 3212 },
+  { username: "Yean", password: 3123 },
 ]);
 
 // 4
