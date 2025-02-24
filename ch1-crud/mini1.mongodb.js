@@ -54,7 +54,7 @@ db.students.find();
 
 // 5.
 // students 컬랙션에서 name이 John인 데이터 조회
-db.students.find({ name: "John" });
+db.students.findOne({ name: "John" });
 
 // 6.
 // students 컬랙션에서 name이 John인 데이터 수정
@@ -79,10 +79,11 @@ db.students.find().sort({ age: -1 }).limit(3);
 // 11.
 // students 컬렉션에서 name과 age만 조회(id 제외)
 db.students.find({}, { name: 1, age: 1, _id: 0 });
+db.students.find({}, { _id: 0 });
 
 // 12.
 // employee 컬렉션에서 age가 30 이상인 문서 개수
-db.employee.count({ age: { $gte: 30 } });
+db.employee.countDocuments({ age: { $gte: 30 } });
 
 // 13.
 // employee 컬랙션에서 email 필드가 존재하는 문서 조회
