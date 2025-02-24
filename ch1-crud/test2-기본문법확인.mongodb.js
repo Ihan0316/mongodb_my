@@ -3,7 +3,8 @@
 // 1. 기본 문법 및 개념
 // createCollection(name, options)
 // : MongoDB에서 새로운 컬렉션을 생성하는 메서드.
-// Capped Collection: 저장 공간이 제한된(fixed - size) 컬렉션으로, 오래된 데이터가 자동으로 삭제됨.
+// Capped Collection: 저장 공간이 제한된(fixed - size)
+// 컬렉션으로, 오래된 데이터가 자동으로 삭제됨.
 
 //     옵션:
 // capped: true → 컬렉션을 Capped Collection으로 설정.
@@ -56,10 +57,9 @@
 db.createCollection("cappedC", { capped: true, size: 10000 });
 db.cappedC.insertOne({ x: 1 });
 db.cappedC.find();
-
-// 반복문으로 1000개 추가시
-// 오래된 데이터 삭제 후, 새로운 데이터 추가
-// 1~655번까지 삭제 후 656번부터 추가됨
+// 반복문으로, 0 부터 999번까지 데이터  추가시,
+// 오래된 데이터를 삭제 후, 새로운 데이터를 추가해서,
+// 기존데이터 , 0 ~ 655 번까지 삭제후, 그 이후 데이터가 새롭게 추가.
 for (i = 0; i < 1000; i++) {
   db.cappedC.insertOne({ x: i });
 }
@@ -68,8 +68,53 @@ db.cappedC.find();
 db.cappedC.storageSize();
 db.cappedC.stats();
 
-// 일반 컬랙션에 반복문으로 데이터 1000개 추가
+// 일반 컬렉션에, 반복문으로 데이터 1000개 추가 해보기. 비교.
 for (i = 0; i < 1000; i++) {
   db.testCollection.insertOne({ x: i });
 }
 db.testCollection.find();
+
+// 2
+// 1. 데이터베이스 선택 (use)
+// 기본 문법
+
+// use("databaseName");
+// 특정 데이터베이스를 선택.
+// use는 새로운 데이터베이스를 생성하지 않으며, 컬렉션이 추가될 때 생성됨.
+// 예제
+
+// use("testBlog");
+// testBlog 데이터베이스를 선택.
+
+// 주의사항, use 사용 안하면, 기본 test 디비 사용함.
+
+// 3
+//  컬렉션에 문서 삽입 (insertOne, insertMany)
+// 기본 문법
+
+// db.collection.insertOne(document);
+// db.collection.insertMany([document1, document2, ...]);
+// 단일 문서 또는 여러 문서를 컬렉션에 삽입.
+
+// 예제
+db.users.insertOne({ name: "Alice", age: 25 });
+db.users.insertOne({ name: "Alice", age: 25, place: "부산" });
+db.users.find();
+// db.users.insertMany([{ name: "Bob", age: 30 }, { name: "Charlie", age: 35 }]);
+
+// 출력 결과
+// json
+
+// { "acknowledged": true, "insertedId": ObjectId("6578a3b2a3f93c1d3e9f7b22") }
+// 실무 활용
+// 회원 가입 시 사용자 정보 저장.
+// 로그 데이터 저장.
+
+db.emp.insertOne({ eno: 1101, fname: "JIMMY" });
+db.emp.insertOne({ eno: 1102, fname: "ADAM", lname: "KROLL" });
+db.emp.insertOne({ eno: 1103, fname: "SMITH", job: "CLERK" });
+db.emp.find();
+db.emp.find().sort({ eno: -1 });
+
+db.testCollection.insertOne({ _id: 1, x: 1 });
+db.testCollection.find().sort({ _id: 1 });
