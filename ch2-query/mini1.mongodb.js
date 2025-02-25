@@ -98,12 +98,15 @@ db.users.find(
 // 1
 // "MongoDB" 관련 태그가 있는 사용자 찾기
 db.users.find({ tags: "MongoDB" }, { name: 1, tags: 1 });
+
 // 2
 // orders 배열이 비어있지 않은 사용자 찾기
 db.users.find({ orders: { $exists: true, $ne: [] } }, { name: 1, orders: 1 });
+
 // 3
 // 최근 5개의 주문만 가져오기
 db.users.find({}, { orders: { $slice: -5 } });
+
 // 4
 // 3개 이상의 리뷰가 있는 사용자 찾기
 db.users.find(
@@ -114,21 +117,26 @@ db.users.find(
   },
   { name: 1, reviews: 1 }
 );
+
 // 5
 // "Admin" 권한을 가진 사용자 찾기
 db.users.find({ roles: "Admin" }, { name: 1, roles: 1 });
+
 // 6
 // 주소에 "Street"이 포함된 사용자 찾기
 db.users.find({ address: { $regex: "Street" } }, { name: 1, address: 1 });
+
 // 7
 // 특정 카테고리("Technology")를 구독한 사용자 찾기
 db.users.find({ subscriptions: "Technology" }, { name: 1, subscriptions: 1 });
+
 // 8
 // 생년월일이 1990년 이후인 사용자 찾기
 db.users.find(
   { birthdate: { $gte: ISODate("1990-01-01T00:00:00Z") } },
   { name: 1, birthdate: 1 }
 );
+
 // 9
 // 특정 제품을 구매한 사용자 찾기
 db.users.find({ "orders.product": "Laptop" }, { name: 1, "orders.product": 1 });
