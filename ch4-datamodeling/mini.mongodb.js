@@ -1,39 +1,78 @@
 // 📌 기본 실습 문제
 // 1. Embedded Document (Rich Document)
 // users 컬렉션을 생성하고, name, age, address 필드를 가진 문서를 삽입하시오.
-db.users.insertOne({
-  name: "Alice",
-  age: 30,
-  address: { city: "Seoul", zip: "12345" },
-});
+db.users.insertMany(
+  {
+    name: "Alice",
+    age: 30,
+    address: { city: "Seoul", zip: "12345" },
+  },
+  {
+    name: "Bob",
+    age: 25,
+    address: { city: "Busan", zip: "67890" },
+  }
+);
 // products 컬렉션에 name, price, manufacturer 필드를 가진 문서를 삽입하시오.
-db.products.insertOne({
-  name: "MacBook Pro",
-  price: 1000,
-  manufacturer: "Apple Inc.",
-});
+db.products.insertMany(
+  {
+    name: "MacBook Pro",
+    price: 1000,
+    manufacturer: "Apple Inc.",
+  },
+  {
+    name: "Galaxy S25",
+    price: 800,
+    manufacturer: "Samsung",
+  }
+);
 // orders 컬렉션에 주문 정보(orderId, userId, items)를 Embedded Document로 삽입하시오.
-db.orders.insertOne({
-  orderId: "A001",
-  userId: "user1",
-  items: [
-    { productId: "p001", quantity: 2 },
-    { productId: "p002", quantity: 1 },
-  ],
-});
+db.orders.insertMany(
+  {
+    orderId: "A001",
+    userId: "user1",
+    items: [
+      { productId: "p001", quantity: 2 },
+      { productId: "p002", quantity: 1 },
+    ],
+  },
+  {
+    orderId: "A002",
+    userId: "user2",
+    items: [
+      { productId: "p003", quantity: 3 },
+      { productId: "p004", quantity: 1 },
+    ],
+  }
+);
 // books 컬렉션에 title, author, details(페이지 수, 출판 연도 포함) 필드를 가진 문서를 삽입하시오.
-db.books.insertOne({
-  title: "JavaScript",
-  author: "Alice",
-  details: { pages: 300, published: 2020 },
-});
+db.books.insertMany(
+  {
+    title: "JavaScript",
+    author: "Alice",
+    details: { pages: 300, published: 2020 },
+  },
+  {
+    title: "Python",
+    author: "Bob",
+    details: { pages: 400, published: 2021 },
+  }
+);
 // reviews 컬렉션에 productId, userId, rating, comment를 Embedded Document로 저장하시오.
-db.reviews.insertOne({
-  productId: "p001",
-  userId: "user1",
-  rating: 5,
-  comment: "Good!",
-});
+db.reviews.insertMany(
+  {
+    productId: "p001",
+    userId: "user1",
+    rating: 5,
+    comment: "Good!",
+  },
+  {
+    productId: "p002",
+    userId: "user2",
+    rating: 4,
+    comment: "Nice!",
+  }
+);
 
 // 2. Link 구조
 // users 컬렉션과 orders 컬렉션을 참조(Reference) 관계로 설정하고 데이터 삽입하시오.
