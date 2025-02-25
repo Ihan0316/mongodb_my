@@ -119,7 +119,7 @@ db.users.find({ roles: "Admin" });
 
 // 6
 // 주소에 "Street"이 포함된 사용자 찾기
-db.users.find({ address: { $regex: "Street" } });
+db.users.find({ address: { $regex: "Street", $options: "i" } });
 
 // 7
 // 특정 카테고리("Technology")를 구독한 사용자 찾기
