@@ -128,7 +128,10 @@ db.users.find({ address: { $regex: "Street" } }, { name: 1, address: 1 });
 
 // 7
 // 특정 카테고리("Technology")를 구독한 사용자 찾기
-db.users.find({ subscriptions: "Technology" }, { name: 1, subscriptions: 1 });
+db.users.createIndex({ subscriptions: "text" });
+db.users.find({ $text: { $search: "Technology" } });
+
+db.users.getIndexes();
 
 // 8
 // 생년월일이 1990년 이후인 사용자 찾기
