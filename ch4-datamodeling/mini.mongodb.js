@@ -201,32 +201,172 @@ db.doctor_patient.insertMany([
 
 // 3. 계층형 데이터 구조
 // categories 컬렉션을 계층 구조(parentId 필드 포함)로 생성하고 데이터 삽입하시오.
-db.categories.insertOne({
-  _id: "root",
-  name: "Root",
-  parentId: null,
-});
+db.categories.insertMany([
+  // 최상위 카테고리
+  { _id: ObjectId(), name: "전자제품", parentId: null, order: 1 },
+  { _id: ObjectId(), name: "가구", parentId: null, order: 2 },
+
+  // "전자제품" 하위 카테고리
+  {
+    _id: ObjectId(),
+    name: "스마트폰",
+    parentId: db.categories.findOne({ name: "전자제품" })._id,
+    order: 1,
+  },
+  {
+    _id: ObjectId(),
+    name: "노트북",
+    parentId: db.categories.findOne({ name: "전자제품" })._id,
+    order: 2,
+  },
+
+  // "가구" 하위 카테고리
+  {
+    _id: ObjectId(),
+    name: "소파",
+    parentId: db.categories.findOne({ name: "가구" })._id,
+    order: 1,
+  },
+  {
+    _id: ObjectId(),
+    name: "침대",
+    parentId: db.categories.findOne({ name: "가구" })._id,
+    order: 2,
+  },
+]);
 // comments 컬렉션을 계층 구조(parentId 필드 포함)로 생성하고 데이터 삽입하시오.
-db.comments.insertOne({
-  _id: "comment1",
-  message: "Hello, World!",
-  parentId: null,
-});
+db.comments.insertMany([
+  // 최상위 카테고리
+  { _id: ObjectId(), name: "댓글", parentId: null, order: 1 },
+  { _id: ObjectId(), name: "사용자", parentId: null, order: 2 },
+
+  // "댓글" 하위 카테고리
+  {
+    _id: ObjectId(),
+    name: "댓글1",
+    parentId: db.comments.findOne({ name: "댓글" })._id,
+    order: 1,
+  },
+  {
+    _id: ObjectId(),
+    name: "댓글2",
+    parentId: db.comments.findOne({ name: "댓글" })._id,
+    order: 2,
+  },
+
+  // "사용자" 하위 카테고리
+  {
+    _id: ObjectId(),
+    name: "사용자1",
+    parentId: db.comments.findOne({ name: "사용자" })._id,
+    order: 1,
+  },
+  {
+    _id: ObjectId(),
+    name: "사용자2",
+    parentId: db.comments.findOne({ name: "사용자" })._id,
+    order: 2,
+  },
+]);
 // company_structure 컬렉션을 계층 구조(parentId 필드 포함)로 생성하고 데이터 삽입하시오.
-db.company_structure.insertOne({
-  _id: "root",
-  name: "Root",
-  parentId: null,
-});
+db.company_structure.insertMany([
+  // 최상위 카테고리
+  { _id: ObjectId(), name: "사원", parentId: null, order: 1 },
+  { _id: ObjectId(), name: "직급", parentId: null, order: 2 },
+
+  // "댓글" 하위 카테고리
+  {
+    _id: ObjectId(),
+    name: "사원1",
+    parentId: db.company_structure.findOne({ name: "사원" })._id,
+    order: 1,
+  },
+  {
+    _id: ObjectId(),
+    name: "사원2",
+    parentId: db.company_structure.findOne({ name: "사원" })._id,
+    order: 2,
+  },
+
+  // "직급" 하위 카테고리
+  {
+    _id: ObjectId(),
+    name: "직급1",
+    parentId: db.company_structure.findOne({ name: "직급" })._id,
+    order: 1,
+  },
+  {
+    _id: ObjectId(),
+    name: "직급2",
+    parentId: db.company_structure.findOne({ name: "직급" })._id,
+    order: 2,
+  },
+]);
 // locations 컬렉션을 계층 구조(parentId 필드 포함)로 생성하고 데이터 삽입하시오.
-db.locations.insertOne({
-  _id: "root",
-  name: "Root",
-  parentId: null,
-});
+db.locations.insertMany([
+  // 최상위 카테고리
+  { _id: ObjectId(), name: "위도", parentId: null, order: 1 },
+  { _id: ObjectId(), name: "경도", parentId: null, order: 2 },
+
+  // "댓글" 하위 카테고리
+  {
+    _id: ObjectId(),
+    name: "위도1",
+    parentId: db.locations.findOne({ name: "위도" })._id,
+    order: 1,
+  },
+  {
+    _id: ObjectId(),
+    name: "위도2",
+    parentId: db.locations.findOne({ name: "위도" })._id,
+    order: 2,
+  },
+
+  // "경도" 하위 카테고리
+  {
+    _id: ObjectId(),
+    name: "경도1",
+    parentId: db.locations.findOne({ name: "경도" })._id,
+    order: 1,
+  },
+  {
+    _id: ObjectId(),
+    name: "경도2",
+    parentId: db.locations.findOne({ name: "경도" })._id,
+    order: 2,
+  },
+]);
 // menus 컬렉션을 계층 구조(parentId 필드 포함)로 생성하고 데이터 삽입하시오.
-db.menus.insertOne({
-  _id: "root",
-  name: "Root",
-  parentId: null,
-});
+db.menus.insertMany([
+  // 최상위 카테고리
+  { _id: ObjectId(), name: "메뉴", parentId: null, order: 1 },
+  { _id: ObjectId(), name: "재료", parentId: null, order: 2 },
+
+  // "메뉴" 하위 카테고리
+  {
+    _id: ObjectId(),
+    name: "메뉴1",
+    parentId: db.menus.findOne({ name: "메뉴" })._id,
+    order: 1,
+  },
+  {
+    _id: ObjectId(),
+    name: "메뉴2",
+    parentId: db.menus.findOne({ name: "메뉴" })._id,
+    order: 2,
+  },
+
+  // "재료" 하위 카테고리
+  {
+    _id: ObjectId(),
+    name: "재료1",
+    parentId: db.menus.findOne({ name: "재료" })._id,
+    order: 1,
+  },
+  {
+    _id: ObjectId(),
+    name: "재료2",
+    parentId: db.menus.findOne({ name: "재료" })._id,
+    order: 2,
+  },
+]);
