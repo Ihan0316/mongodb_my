@@ -32,11 +32,11 @@ db.products.createIndex({ name: 1, category: 1 });
 // ✅ 10. locations 컬렉션에서 coordinates 필드에 대한 지리 공간 인덱스 생성
 db.locations.createIndex({ coordinates: "2dsphere" });
 
-// ✅ 11. 특정 좌표(서울[37.5665, 126.9784])에서 반경 10km 내 위치 검색 ($center)
+// ✅ 11. 특정 좌표(서울[37.5665, 126.9784])에서 반경 10도 내 위치 검색 ($center)
 db.locations.find({
   coordinates: {
     $geoWithin: {
-      $centerSphere: [[126.9784, 37.5665], 10 / 6378.1], // 10km를 지구 반지름(6378.1km)으로 나눔
+      $center: [[126.9784, 37.5665], 10],
     },
   },
 });
@@ -72,49 +72,6 @@ db.locations.find({
 });
 
 // ✅ 14. businesses 컬렉션에서 다중 위치 지점 데이터 저장 및 인덱스 생성
-db.businesses.insertMany([
-  {
-    name: "Cafe A",
-    branches: [{ type: "Point", coordinates: [126.9784, 37.5665] }],
-  },
-  {
-    name: "Cafe B",
-    branches: [{ type: "Point", coordinates: [129.1611, 35.1587] }],
-  },
-  {
-    name: "Cafe C",
-    branches: [{ type: "Point", coordinates: [127.0276, 37.4979] }],
-  },
-  {
-    name: "Restaurant D",
-    branches: [{ type: "Point", coordinates: [126.9335, 37.556] }],
-  },
-  {
-    name: "Bar E",
-    branches: [{ type: "Point", coordinates: [127.0396, 37.5013] }],
-  },
-  {
-    name: "Bookstore F",
-    branches: [{ type: "Point", coordinates: [126.9781, 37.57] }],
-  },
-  {
-    name: "Gym G",
-    branches: [{ type: "Point", coordinates: [127.0245, 37.5825] }],
-  },
-  {
-    name: "Hotel H",
-    branches: [{ type: "Point", coordinates: [129.0653, 35.1798] }],
-  },
-  {
-    name: "Cinema I",
-    branches: [{ type: "Point", coordinates: [127.115, 37.5133] }],
-  },
-  {
-    name: "Supermarket J",
-    branches: [{ type: "Point", coordinates: [126.8955, 37.5552] }],
-  },
-]);
-
 db.businesses.createIndex({ "branches.coordinates": "2dsphere" });
 
 // ✅ 15. 현재 위치에서 가장 가까운 장소 찾기 ($nearSphere)
@@ -122,34 +79,13 @@ db.businesses.find({
   "branches.coordinates": {
     $nearSphere: {
       $geometry: { type: "Point", coordinates: [126.9784, 37.5665] },
-      $maxDistance: 10000,
+      $maxDistance: 1000, //1 km
     },
   },
 });
 
 // ✅ 16. places 컬렉션에서 GeoON 형식의 포인트 데이터 저장 및 인덱스 생성
-db.places.insertMany([
-  {
-    name: "Place A",
-    location: { type: "Point", coordinates: [126.9784, 37.5665] },
-  },
-  {
-    name: "Place B",
-    location: { type: "Point", coordinates: [129.1611, 35.1587] },
-  },
-  {
-    name: "Place C",
-    location: { type: "Point", coordinates: [127.0276, 37.4979] },
-  },
-  {
-    name: "Place D",
-    location: { type: "Point", coordinates: [126.9335, 37.556] },
-  },
-  {
-    name: "Place E",
-    location: { type: "Point", coordinates: [127.0396, 37.5013] },
-  },
-]);
+db.places.createIndex({ location: "2dsphere" });
 
 // 특정 카테고리를 사용자에 추가
 db.users.updateMany({}, { $set: { subscriptions: [] } });
@@ -162,7 +98,7 @@ db.users.updateMany({}, { $set: { product: [] } });
 db.users.find({ name: "Alice", product: "product1" });
 
 // ✅ 19. 최근에 가입한 사용자 찾기
-db.users.find({ joinedAt: -1 }).limit(1);
+db.users.find().sort({ joinedAt: -1 }).limit(1);
 
 // ✅ 20. 이메일 도메인별 사용자 수 계산
 db.users.aggregate([
