@@ -90,18 +90,15 @@ db.users.insertMany([
 ]);
 
 // 2022년 이후 가입한 사용자 찾기
-db.users.find(
-  { joinedAt: { $gte: ISODate("2022-01-01T00:00:00Z") } },
-  { name: 1, joinedAt: 1 }
-);
+db.users.find({ joinedAt: { $gte: ISODate("2022-01-01T00:00:00Z") } });
 
 // 1
 // "MongoDB" 관련 태그가 있는 사용자 찾기
-db.users.find({ tags: "MongoDB" }, { name: 1, tags: 1 });
+db.users.find({ tags: "MongoDB" });
 
 // 2
 // orders 배열이 비어있지 않은 사용자 찾기
-db.users.find({ orders: { $exists: true, $ne: [] } }, { name: 1, orders: 1 });
+db.users.find({ orders: { $exists: true, $ne: [] } });
 
 // 3
 // 최근 5개의 주문만 가져오기
@@ -109,22 +106,20 @@ db.users.find({}, { orders: { $slice: -5 } });
 
 // 4
 // 3개 이상의 리뷰가 있는 사용자 찾기
-db.users.find(
-  {
-    $expr: {
-      $gte: [{ $size: "$reviews" }, 3],
-    },
+db.users.find({
+  $expr: {
+    $gte: [{ $size: "$reviews" }, 3],
   },
-  { name: 1, reviews: 1 }
-);
+});
+db.users.find({ "reviews.2": { $exists: true } });
 
 // 5
 // "Admin" 권한을 가진 사용자 찾기
-db.users.find({ roles: "Admin" }, { name: 1, roles: 1 });
+db.users.find({ roles: "Admin" });
 
 // 6
 // 주소에 "Street"이 포함된 사용자 찾기
-db.users.find({ address: { $regex: "Street" } }, { name: 1, address: 1 });
+db.users.find({ address: { $regex: "Street" } });
 
 // 7
 // 특정 카테고리("Technology")를 구독한 사용자 찾기
@@ -142,4 +137,4 @@ db.users.find(
 
 // 9
 // 특정 제품을 구매한 사용자 찾기
-db.users.find({ "orders.product": "Laptop" }, { name: 1, "orders.product": 1 });
+db.users.find({ "orders.product": "Laptop" });
