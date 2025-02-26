@@ -219,7 +219,6 @@ db.orders.aggregate([
         $gte: ISODate("2024-01-01T00:00:00Z"),
         $lte: ISODate("2024-03-01T23:59:59Z"),
       },
-      status: "completed",
     },
   },
   {
