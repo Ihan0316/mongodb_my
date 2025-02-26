@@ -252,6 +252,7 @@ db.orders.aggregate([
 db.orders.aggregate([
   {
     $match: {
+      // userid를 빼면서, 전체 user에 대해 조회
       status: "completed",
     },
   },
