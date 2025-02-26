@@ -274,7 +274,7 @@ db.company_structure.insertMany([
   { _id: ObjectId(), name: "사원", parentId: null, order: 1 },
   { _id: ObjectId(), name: "직급", parentId: null, order: 2 },
 
-  // "댓글" 하위 카테고리
+  // "사원" 하위 카테고리
   {
     _id: ObjectId(),
     name: "사원1",
