@@ -2,16 +2,16 @@
 
 설정 서버 구성 - 상용1
 1
-mkdir d:\db2\data\config0-0
-mkdir d:\db2\data\config0-1
-mkdir d:\db2\data\config0-2
+mkdir -p /Users/ihanjo/Documents/K-Digital/db/data/config0-0
+mkdir -p /Users/ihanjo/Documents/K-Digital/db/data/config0-1
+mkdir -p /Users/ihanjo/Documents/K-Digital/db/data/config0-2
 
 2 각 창에 명령어를 하나씩 실행해야 함. 
 명령어창에서, c드라이브에서 -> d드라이브로 교체, d: 
 
-mongod --configsvr --replSet config0 --port 27018 --bind_ip 0.0.0.0 --dbpath /db2/data/config0-0 
-mongod --configsvr --replSet config0 --port 27019 --bind_ip 0.0.0.0 --dbpath /db2/data/config0-1
-mongod --configsvr --replSet config0 --port 27020 --bind_ip 0.0.0.0 --dbpath /db2/data/config0-2
+mongod --configsvr --replSet config0 --port 27018 --bind_ip 0.0.0.0 --dbpath /Users/ihanjo/Documents/K-Digital/db/data/config0-0
+mongod --configsvr --replSet config0 --port 27019 --bind_ip 0.0.0.0 --dbpath /Users/ihanjo/Documents/K-Digital/db/data/config0-1
+mongod --configsvr --replSet config0 --port 27020 --bind_ip 0.0.0.0 --dbpath /Users/ihanjo/Documents/K-Digital/db/data/config0-2
 
 
 3
@@ -33,14 +33,14 @@ members: [
 
 샤드 구성1 - 상용2
 1
-mkdir d:\db2\data\shard0-0
-mkdir d:\db2\data\shard0-1
-mkdir d:\db2\data\shard0-2
+mkdir -p /Users/ihanjo/Documents/K-Digital/db2/data/shard0-0
+mkdir -p /Users/ihanjo/Documents/K-Digital/db2/data/shard0-1
+mkdir -p /Users/ihanjo/Documents/K-Digital/db2/data/shard0-2
 
 2 각 창에 명령어를 하나씩 실행해야 함. 
-mongod --shardsvr --replSet shard0 --port 27021 --bind_ip 0.0.0.0 --dbpath /db2/data/shard0-0 
-mongod --shardsvr --replSet shard0 --port 27022 --bind_ip 0.0.0.0 --dbpath /db2/data/shard0-1
-mongod --shardsvr --replSet shard0 --port 27023 --bind_ip 0.0.0.0 --dbpath /db2/data/shard0-2
+mongod --shardsvr --replSet shard0 --port 27021 --bind_ip 0.0.0.0 --dbpath /Users/ihanjo/Documents/K-Digital/db2/data/shard0-0 
+mongod --shardsvr --replSet shard0 --port 27022 --bind_ip 0.0.0.0 --dbpath /Users/ihanjo/Documents/K-Digital/db2/data/shard0-1
+mongod --shardsvr --replSet shard0 --port 27023 --bind_ip 0.0.0.0 --dbpath /Users/ihanjo/Documents/K-Digital/db2/data/shard0-2
 
 3
 mongosh --port 27021
@@ -82,14 +82,14 @@ members: [
 
 샤드 구성2 - 상용3
 1
-mkdir d:\db2\data\shard1-0
-mkdir d:\db2\data\shard1-1
-mkdir d:\db2\data\shard1-2
+mkdir -p /Users/ihanjo/Documents/K-Digital/db2/data/shard1-0
+mkdir -p /Users/ihanjo/Documents/K-Digital/db2/data/shard1-1
+mkdir -p /Users/ihanjo/Documents/K-Digital/db2/data/shard1-2
 
 2 각 창에 명령어를 하나씩 실행해야 함. 
-mongod --shardsvr --replSet shard1 --port 27031 --bind_ip 0.0.0.0 --dbpath /db2/data/shard1-0
-mongod --shardsvr --replSet shard1 --port 27032 --bind_ip 0.0.0.0 --dbpath /db2/data/shard1-1
-mongod --shardsvr --replSet shard1 --port 27033 --bind_ip 0.0.0.0 --dbpath /db2/data/shard1-2
+mongod --shardsvr --replSet shard0 --port 27021 --bind_ip 0.0.0.0 --dbpath /Users/ihanjo/Documents/K-Digital/db2/data/shard1-0 
+mongod --shardsvr --replSet shard0 --port 27022 --bind_ip 0.0.0.0 --dbpath /Users/ihanjo/Documents/K-Digital/db2/data/shard1-1
+mongod --shardsvr --replSet shard0 --port 27023 --bind_ip 0.0.0.0 --dbpath /Users/ihanjo/Documents/K-Digital/db2/data/shard1-2
 
 3
 mongosh --port 27031
@@ -119,9 +119,9 @@ members: [
 
 샤드 구성3- 상용4
 1
-mkdir d:\db2\data\shard2-0
-mkdir d:\db2\data\shard2-1
-mkdir d:\db2\data\shard2-2
+mkdir -p /Users/ihanjo/Documents/K-Digital/db2/data/shard2-0
+mkdir -p /Users/ihanjo/Documents/K-Digital/db2/data/shard2-1
+mkdir -p /Users/ihanjo/Documents/K-Digital/db2/data/shard2-2
 
 2 각 창에 명령어를 하나씩 실행해야 함. 
 mongod --shardsvr --replSet shard2 --port 27041 --bind_ip 0.0.0.0 --dbpath /db2/data/shard2-0
