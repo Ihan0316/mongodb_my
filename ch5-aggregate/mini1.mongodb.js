@@ -1,4 +1,5 @@
 // 데이터 삽입
+// users
 db.users.insertMany([
   {
     _id: "user1",
@@ -26,7 +27,7 @@ db.users.insertMany([
   },
 ]);
 
-// ✅ **제품 정보 (products)**
+// products
 
 db.products.insertMany([
   {
@@ -54,9 +55,7 @@ db.products.insertMany([
 
 // ✅ 제품 정보를 `$lookup`으로 주문과 연결하여 제품별 판매 분석 가능
 
-// ---
-
-// ✅ **3. 주문 정보 (orders 컬렉션)**
+// orders
 
 db.orders.insertMany([
   {
@@ -94,11 +93,7 @@ db.orders.insertMany([
 // ✅ 주문 정보를 사용자 정보와 제품 정보와 연계 가능
 // ✅ 월별 매출 및 인기 상품 분석 가능
 
-// ---
-
-// ### 4. 리뷰 정보 (reviews)
-
-// 아래는 리뷰 데이터를 명확한 형식으로 수정한 코드입니다.
+// reviews
 
 db.reviews.insertMany([
   {
@@ -127,10 +122,7 @@ db.reviews.insertMany([
   },
 ]);
 
-// =======================================================================
-
-// ✅ 5. locations 컬렉션 (지리 정보)
-// GeoJSON 형식으로 변경)
+// locations
 
 db.locations.insertMany([
   {
