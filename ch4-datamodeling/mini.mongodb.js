@@ -308,7 +308,7 @@ db.locations.insertMany([
   { _id: ObjectId(), name: "위도", parentId: null, order: 1 },
   { _id: ObjectId(), name: "경도", parentId: null, order: 2 },
 
-  // "댓글" 하위 카테고리
+  // "위도" 하위 카테고리
   {
     _id: ObjectId(),
     name: "위도1",
