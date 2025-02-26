@@ -244,7 +244,7 @@ db.orders.aggregate([
   },
 ]);
 
-// ✅ 2. 특정 사용자의 총 주문 금액 계산
+// ✅ 2. 모든 사용자의 총 주문 금액 계산
 // db.orders.aggregate([
 // $match,
 // $group,
@@ -252,7 +252,6 @@ db.orders.aggregate([
 db.orders.aggregate([
   {
     $match: {
-      userId: "user2",
       status: "completed",
     },
   },
